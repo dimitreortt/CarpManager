@@ -1,0 +1,6 @@
+---
+description: how to import assets or types from libraries
+alwaysApply: false
+---
+
+-   if a given library is already imported inside a file, for example: "import { type UseFormReturn } from 'react-hook-form'", and you need to import something else from this library (in this case 'react-hook-form'), don't duplicate the import of the library, add the new imported asset in the same line

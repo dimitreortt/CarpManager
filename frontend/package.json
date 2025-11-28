@@ -1,0 +1,49 @@
+{
+	"name": "carpmanager",
+	"private": true,
+	"version": "0.0.0",
+	"type": "module",
+	"scripts": {
+		"dev": "vite --host",
+		"build": "tsc -b && vite build",
+		"test": "vitest",
+		"lint": "eslint .",
+		"preview": "vite preview",
+		"deploy": "npm run build && firebase deploy --only hosting",
+		"deploy2": "firebase deploy --only hosting"
+	},
+	"dependencies": {
+		"@hookform/resolvers": "^5.2.1",
+		"@tanstack/react-query": "^5.90.5",
+		"@vitejs/plugin-react-swc": "^4.0.0",
+		"axios": "^1.12.2",
+		"babel-plugin-react-compiler": "^19.1.0-rc.2",
+		"bootstrap": "^5.3.7",
+		"jotai": "^2.12.5",
+		"lucide-react": "^0.534.0",
+		"react": "^19.1.0",
+		"react-dom": "^19.1.0",
+		"react-hook-form": "^7.61.1",
+		"react-router": "^7.7.1",
+		"zod": "^4.0.13"
+	},
+	"devDependencies": {
+		"@eslint/js": "^9.30.1",
+		"@testing-library/jest-dom": "^6.9.1",
+		"@testing-library/react": "^16.3.0",
+		"@types/react": "^19.1.8",
+		"@types/react-dom": "^19.1.6",
+		"@vitejs/plugin-react": "^5.1.1",
+		"eslint": "^9.30.1",
+		"eslint-plugin-react-hooks": "^5.2.0",
+		"eslint-plugin-react-refresh": "^0.4.20",
+		"eslint-plugin-vitest": "^0.5.4",
+		"globals": "^16.3.0",
+		"jsdom": "^27.2.0",
+		"sass": "^1.89.2",
+		"typescript": "~5.8.3",
+		"typescript-eslint": "^8.35.1",
+		"vite": "^7.0.4",
+		"vitest": "^4.0.12"
+	}
+}

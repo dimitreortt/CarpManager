@@ -1,0 +1,6 @@
+{
+	"testUser": {
+		"email": "integration-test@test.com",
+		"password": "*******"
+	}
+}

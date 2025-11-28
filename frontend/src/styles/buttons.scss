@@ -1,0 +1,126 @@
+@use './design-system.scss' as *;
+
+@mixin button-base {
+	font-family: $font-family-primary;
+	font-weight: $font-weight-medium;
+	font-size: $font-size-sm;
+	padding: $spacing-sm $spacing-md;
+	border-radius: $border-radius-lg;
+	transition: all 0.2s ease;
+	border: none;
+	cursor: pointer;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: $spacing-xs;
+	text-decoration: none;
+	line-height: $line-height-normal;
+
+	&:hover {
+		transform: translateY(-1px);
+		box-shadow: $shadow-lg;
+	}
+}
+
+@mixin button-filled($color-500, $color-600, $color-700) {
+	@include button-base;
+	background: linear-gradient(135deg, $color-500 0%, $color-600 100%);
+	border: none;
+	transition: all 0.2s ease;
+
+	&:hover {
+		background: linear-gradient(135deg, $color-600 0%, $color-700 100%);
+		transform: translateY(-1px);
+		box-shadow: $shadow-lg;
+	}
+}
+
+@mixin button-outline($color-500, $color-600, $color-700) {
+	@include button-base;
+	background: transparent;
+	border: 1px solid $color-600;
+	transition: all 0.2s ease;
+	color: $color-600;
+
+	&:hover {
+		background: transparent;
+		color: $color-700;
+		border: 1px solid $color-700;
+		transform: translateY(-1px);
+		box-shadow: $shadow-lg;
+	}
+
+	&.disabled {
+		background: transparent;
+		color: $color-600;
+		border: 1px solid $color-600;
+		opacity: 0.5;
+		cursor: not-allowed;
+	}
+}
+
+.btn-primary {
+	@include button-filled($color-primary-500, $color-primary-600, $color-primary-700);
+}
+
+.btn-outline-primary {
+	@include button-outline($color-primary-500, $color-primary-600, $color-primary-700);
+}
+
+.btn-secondary {
+	@include button-filled($color-neutral-500, $color-neutral-600, $color-neutral-700);
+}
+
+.btn-outline-secondary {
+	@include button-outline($color-neutral-500, $color-neutral-600, $color-neutral-700);
+}
+
+.btn-info {
+	@include button-filled($color-info, #2563eb, #1d4ed8);
+}
+
+.btn-outline-info {
+	@include button-outline($color-info, #2563eb, #1d4ed8);
+}
+
+.btn-success {
+	@include button-filled($color-success, #059669, #047857);
+}
+
+.btn-outline-success {
+	@include button-outline($color-success, #059669, #047857);
+}
+
+.btn-warning {
+	@include button-filled($color-warning, #d97706, #b45309);
+}
+
+.btn-outline-warning {
+	@include button-outline($color-warning, #d97706, #b45309);
+}
+
+.btn-danger {
+	@include button-filled($color-error, #dc2626, #b91c1c);
+}
+
+.btn-outline-danger {
+	@include button-outline($color-error, #dc2626, #b91c1c);
+}
+
+.btn-light {
+	@include button-filled($color-neutral-200, $color-neutral-300, $color-neutral-400);
+	color: $color-neutral-800;
+}
+
+.btn-outline-light {
+	@include button-outline($color-neutral-200, $color-neutral-300, $color-neutral-400);
+	color: $color-neutral-800;
+}
+
+.btn-dark {
+	@include button-filled($color-neutral-700, $color-neutral-800, $color-neutral-900);
+}
+
+.btn-outline-dark {
+	@include button-outline($color-neutral-700, $color-neutral-800, $color-neutral-900);
+}

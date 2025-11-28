@@ -1,0 +1,18 @@
+.cursor-pointer-important {
+	cursor: pointer !important;
+}
+
+.cursor-pointer-important:hover {
+	&.underline {
+		text-decoration: underline;
+	}
+}
+
+.sec-light {
+	border-color: #707983 !important;
+	color: #8d9399 !important;
+}
+
+.border-none-important {
+	border: none !important;
+}

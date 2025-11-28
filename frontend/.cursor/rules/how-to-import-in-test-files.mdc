@@ -1,0 +1,6 @@
+---
+alwaysApply: true
+---
+
+-   on test files always add the React import like this: import React from 'react'
+-   if there are other imports from React add them on the same line

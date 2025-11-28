@@ -1,0 +1,8 @@
+### IMPORTANT:
+
+-   Always read carpimanager.md before writing any code.
+-   After adding a major feature or completing a milestone, update carpimanager.md.
+-   Document the entire database schema in carpimanager.md.
+-   For new migrations, make sure to add them to the same file.
+-   This app is meant to be in portuguese, so do all the Typography in Portuguese language
+-   Don't add comments in your code suggestions

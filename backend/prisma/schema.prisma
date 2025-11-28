@@ -1,0 +1,286 @@
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["relationJoins"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Company {
+  id String @id @default(uuid())
+  name String
+}
+
+model AllowedEmailInSignUp {
+  id String @id @default(uuid())
+  email String
+  expiresAt DateTime?
+}
+
+model Estimate {
+  id String @id @default(uuid())
+  number Int @unique @default(autoincrement())
+  name String
+  description String?
+  totalValue Float?
+  laborCost Float?
+  precutCost Float?
+  dueDate DateTime?
+  notes String?
+
+  client Client? @relation(fields: [clientId], references: [id])
+  clientId String?
+  tripServiceCosts TripServiceCost[]
+  quotes Quote[]
+  incomings Incoming[]
+  estimateMaterials EstimateMaterial[]
+
+  status String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt @default(now())
+  deletedAt DateTime?
+
+  companyId String?
+  @@index([companyId])
+}
+
+model EstimateMaterial {
+  @@id([estimateId, materialId])
+  price Float?
+
+  estimate Estimate @relation(fields: [estimateId], references: [id], onDelete: Cascade)
+  estimateId String
+  material Material @relation(fields: [materialId], references: [id], onDelete: Cascade)
+  materialId String
+}
+
+model Material {
+  id String @id @default(uuid())
+  number Int @unique @default(autoincrement())
+  name String
+  price Float
+  code String
+  description String?
+  category String?
+
+  supplier Supplier? @relation(fields: [supplierId], references: [id])
+  supplierId String?
+  estimateMaterials EstimateMaterial[]
+
+	status String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt @default(now())
+  deletedAt DateTime?
+
+  companyId String?
+  @@index([companyId])
+}
+
+model Supplier {
+  id String @id @default(uuid())
+  number Int @default(autoincrement())
+  name String
+  email String?
+  phone String?
+  contactPerson String?
+  cnpj String?
+  notes String?
+  address String?
+  city String?
+  state String?
+
+  materials Material[]
+  quotes Quote[]
+  outgoings Outgoing[]
+
+  status String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt @default(now())
+  deletedAt DateTime?
+
+  companyId String?
+  @@index([companyId])
+}
+
+model Trip {
+  id String @id @default(uuid())
+  number Int @unique @default(autoincrement())
+  name String
+  destination String?
+  date DateTime?
+  numberOfTolls Int?
+  costOfTolls Float?
+  numberOfLunches Int?
+  costOfLunches Float?
+  costOfFuel Float?
+  numberOfServices Int?
+  costPerService Float?
+  totalCost Float?
+  notes String?
+
+  serviceCosts TripServiceCost[]
+
+	status String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt @default(now())
+  deletedAt DateTime?
+
+  companyId String?
+  @@index([companyId])
+}
+
+model TripServiceCost {
+  id String @id @default(uuid())
+  percentage Float?
+  cost Float?
+
+  trip Trip? @relation(fields: [tripId], references: [id], onDelete: Cascade)
+  tripId String?
+  estimate Estimate? @relation(fields: [estimateId], references: [id], onDelete: SetNull)
+  estimateId String?
+
+	status String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt @default(now())
+  deletedAt DateTime?
+
+  companyId String?
+  @@index([companyId])
+}
+
+model Client {
+  id String @id @default(uuid())
+	number Int? @unique @default(autoincrement())
+	name String
+	contactPerson String?
+	code String?
+	email String?
+	phone String?
+	city String?
+	address String?
+	deliveryAddress String?
+	notes String?
+
+  estimates Estimate[]
+  incomings Incoming[]
+
+	status String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt @default(now())
+  deletedAt DateTime?
+
+  companyId String?
+  @@index([companyId])
+}
+
+model Quote {
+	id String @id @default(uuid())
+	number Int? @unique @default(autoincrement())
+	name String
+	amount Float?
+	description String?
+	date String?
+
+	supplier Supplier? @relation(fields: [supplierId], references: [id], onDelete: SetNull)
+	supplierId String?
+	estimate Estimate? @relation(fields: [estimateId], references: [id], onDelete: SetNull)
+	estimateId String?
+
+	status String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt @default(now())
+  deletedAt DateTime?
+
+  companyId String?
+  @@index([companyId])
+}
+
+model Employee {
+	id String @id @default(uuid())
+	number Int? @unique @default(autoincrement())
+	name String
+	code String?
+	email String?
+	phone String?
+	position String?
+	department String?
+	hireDate String?
+	salary Float?
+	address String?
+	city String?
+	state String?
+	emergencyContact String?
+	emergencyPhone String?
+	bankAccount String?
+	bankBranch String?
+	bankCode String?
+	notes String?
+
+	status String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt @default(now())
+  deletedAt DateTime?
+
+  outgoings Outgoing[]
+
+  companyId String?
+  @@index([companyId])
+}
+
+model Incoming {
+	id String @id @default(uuid())
+	number Int @unique @default(autoincrement())
+	name String
+	amount Float?
+	date String?
+	paymentMethod String?
+	installmentNumber Int?
+	numberOfInstallments Int?
+	notes String?
+
+	client Client? @relation(fields: [clientId], references: [id], onDelete: SetNull)
+	clientId String?
+	estimate Estimate? @relation(fields: [estimateId], references: [id], onDelete: SetNull)
+	estimateId String?
+
+  status String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt @default(now())
+  deletedAt DateTime?
+
+  companyId String?
+  @@index([companyId])
+}
+
+model Outgoing {
+	id String @id @default(uuid())
+	number Int @unique @default(autoincrement())
+	name String
+  amount Float?
+  paymentMethod String?
+	date DateTime?
+	description String?
+	category String?
+	accountType String?
+
+	supplier Supplier? @relation(fields: [supplierId], references: [id], onDelete: SetNull)
+	supplierId String?
+  employee Employee? @relation(fields: [employeeId], references: [id], onDelete: SetNull)
+  employeeId String?
+
+	status String?
+	createdAt DateTime @default(now())
+	updatedAt DateTime @updatedAt @default(now())
+	deletedAt DateTime?
+
+  companyId String?
+  @@index([companyId])
+}
+
+model Token {
+	id String @id @default(uuid())
+  expiresAt DateTime
+  token String
+}

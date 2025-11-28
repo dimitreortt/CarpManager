@@ -1,0 +1,20 @@
+{
+	"hosting": {
+		"public": "dist",
+		"site": "carpmanager-cypress-integration",
+		"ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+		"rewrites": [
+			{
+				"source": "/api/**",
+				"run": {
+					"serviceId": "carpmanager-backend",
+					"region": "us-east4"
+				}
+			},
+			{
+				"source": "**",
+				"destination": "/index.html"
+			}
+		]
+	}
+}
